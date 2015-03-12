@@ -83,11 +83,15 @@ int main(int argc,char* argv[]) {
         const double L=L1+L2;
         
   const double V_a=0;
-  const double V_b=5;
+  const double V_c=5;
+
+  const double p = 0.5;
   
   const double a0=70000.0;
   const double x0=L1/2;
   const double sigma=0.1*L1;
+
+  const double epsilon0 = 8.85418782e-12;
   
         int trivial;
         cerr << "trivial case 1 (question 6.2.c) ou 0 (questions suivantes): " <<flush;
@@ -115,7 +119,7 @@ int main(int argc,char* argv[]) {
   cerr << "Nom du fichier de sortie: " <<flush;
   cin  >> output_filename;
   
-  vector<double> x(npoints1+ninter2);
+  vector<double> x(npoints);
   
   // piecewise regular grid
   double hreg1=L1/((double)ninter1);
@@ -126,7 +130,7 @@ int main(int argc,char* argv[]) {
         }
         
         for(int i=npoints1;i<npoints;++i){
-                x[i]=xb+hreg2*((double)(1+i-npoints1));
+                x[i]=xb+hreg2*((double)(i-npoints1));
         }
   
   std::vector<double> h(ninter);
@@ -140,18 +144,21 @@ int main(int argc,char* argv[]) {
   std::vector<double> c(ninter,0.);   // upper diagonal
   std::vector<double> b(npoints,0.);  // right hand side
 
-  //
-  // fill the elements of the matrix and right-hand side
-  //
-  for(int i=0;i<ninter;++i) {
+  d[0] = 1/h[0];
+  b[0] = h[0]*(p*rho_lib(x[0])/(2.0*epsilon0*epsilonr(x[0])) + (1-p)*rho_lib(x[0]+h[0]/2.0)/(2.0*epsilon0*epsilonr(x[0]+h[0]/2.0)));
 
-// Write some code here...
-    
+  for(int i=1;i<ninter;++i)
+  {
+      d[i] = 1/h[i] + 1/h[i-1];
+      c[i-1] = -1/h[i-1];
+      a[i-1] = -1/h[i-1];
+      b[i] = h[i-1]*(p*rho_lib(x[i])/(2.0*epsilon0*epsilonr(x[i])) + (1-p)*rho_lib(x[i]-h[i-1]/2.0)/(2.0*epsilon0*epsilonr(x[i]-h[i-1]/2.0))) + h[i]*(p*rho_lib(x[i])/(2.0*epsilon0*epsilonr(x[i])) + (1-p)*rho_lib(x[i]+h[i]/2.0)/(2.0*epsilon0*epsilonr(x[i]+h[i]/2.0)));
   }
-  
-  //
-  // implement the boundary conditions
-  //
+
+  c[ninter] = -1/h[ninter];
+  a[ninter] = -1/h[ninter];
+  d[npoints] = 1/h[ninter];
+  b[npoints] = h[0]*(p*rho_lib(x[npoints])/(2.0*epsilon0*epsilonr(x[npoints])) + (1-p)*rho_lib(x[npoints]-h[ninter]/2.0)/(2.0*epsilon0*epsilonr(x[npoints]-h[ninter]/2.0)));
   
 // Write some code here...
   
@@ -169,9 +176,8 @@ int main(int argc,char* argv[]) {
   std::vector<double> Dx(ninter);
 
   for(int i=0;i<ninter;++i) {
-// Write some code here... 
-    //Ex[i]=...
-    //Dx[i]=...
+    Ex[i] = -(phi[i+1]-phi[i])/h[i];
+    Dx[i] = Ex[i]*epsilon0*epsilonr(x[i]);
   }
   
   //
