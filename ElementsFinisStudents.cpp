@@ -19,7 +19,7 @@ void triangular_solve(const std::vector<T>& diag,
   std::vector<T> new_rhs=rhs;
   
   // forward elimination
-  for(int i=1;i<diag.size();++i) {
+  for(unsigned int i=1;i<diag.size();++i) {
     double pivot=lower[i-1]/new_diag[i-1];
     new_diag[i]-=pivot*upper[i-1];
     new_rhs[i]-=pivot*new_rhs[i-1];
@@ -130,7 +130,7 @@ int main(int argc,char* argv[]) {
         }
         
         for(int i=npoints1;i<npoints;++i){
-                x[i]=xb+hreg2*((double)(i-npoints1));
+                x[i]=xb+hreg2*((double)(1+i-npoints1));
         }
   
   std::vector<double> h(ninter);
@@ -144,21 +144,22 @@ int main(int argc,char* argv[]) {
   std::vector<double> c(ninter,0.);   // upper diagonal
   std::vector<double> b(npoints,0.);  // right hand side
 
-  d[0] = 1/h[0];
-  b[0] = h[0]*(p*rho_lib(x[0])/(2.0*epsilon0*epsilonr(x[0])) + (1-p)*rho_lib(x[0]+h[0]/2.0)/(2.0*epsilon0*epsilonr(x[0]+h[0]/2.0)));
+  d[0] = 1;
+  b[0] = V_a;
 
   for(int i=1;i<ninter;++i)
   {
-      d[i] = 1/h[i] + 1/h[i-1];
-      c[i-1] = -1/h[i-1];
-      a[i-1] = -1/h[i-1];
-      b[i] = h[i-1]*(p*rho_lib(x[i])/(2.0*epsilon0*epsilonr(x[i])) + (1-p)*rho_lib(x[i]-h[i-1]/2.0)/(2.0*epsilon0*epsilonr(x[i]-h[i-1]/2.0))) + h[i]*(p*rho_lib(x[i])/(2.0*epsilon0*epsilonr(x[i])) + (1-p)*rho_lib(x[i]+h[i]/2.0)/(2.0*epsilon0*epsilonr(x[i]+h[i]/2.0)));
+      d[i] = (p*0.5*(epsilonr(x[i-1])+epsilonr(x[i])) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1] + (p*0.5*(epsilonr(x[i])+epsilonr(x[i+1])) + (1-p)*epsilonr(x[i]+0.5*h[i]))/h[i];
+      c[i-1] = -(0.5*p*(epsilonr(x[i-1]+epsilonr(x[i]))) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1];
+      a[i-1] = -(0.5*p*(epsilonr(x[i-1]+epsilonr(x[i]))) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1];
+      b[i] = h[i-1]*(p*rho_lib(x[i])/(2.0*epsilon0) + (1-p)*rho_lib(x[i]-h[i-1]/2.0)/(2.0*epsilon0)) + h[i]*(p*rho_lib(x[i])/(2.0*epsilon0) + (1-p)*rho_lib(x[i]+h[i]/2.0)/(2.0*epsilon0));
   }
 
-  c[ninter] = -1/h[ninter];
-  a[ninter] = -1/h[ninter];
-  d[npoints] = 1/h[ninter];
-  b[npoints] = h[0]*(p*rho_lib(x[npoints])/(2.0*epsilon0*epsilonr(x[npoints])) + (1-p)*rho_lib(x[npoints]-h[ninter]/2.0)/(2.0*epsilon0*epsilonr(x[npoints]-h[ninter]/2.0)));
+  c[0] = 0;
+  c[ninter-1] = -(0.5*p*(epsilonr(x[ninter-1]+epsilonr(x[ninter]))) + (1-p)*epsilonr(x[ninter]-0.5*h[ninter-1]))/h[ninter-1];
+  a[ninter-1] = 0;
+  d[npoints-1] = 1;
+  b[npoints-1] = V_c;
   
 // Write some code here...
   
@@ -183,10 +184,11 @@ int main(int argc,char* argv[]) {
   }
   
   //
+  //
   // write to output files
   //
   {
-    ofstream ofs(("phi_"+output_filename).c_str());  
+    ofstream ofs(("phi_"+output_filename).c_str());
     ofs.precision(15);
 
     for(int i=0;i<npoints;++i)
@@ -233,7 +235,7 @@ int main(int argc,char* argv[]) {
     ofstream ofs(("rhopol_"+output_filename).c_str());
     ofs.precision(15);
 
-    for(int i=1;i<ninter-1;++i)
+    for(int i=1;i<ninter;++i)
       ofs << x[i]+h[i]/2.0 << " " << rhopol[i] << endl;
 
     ofs.close();
