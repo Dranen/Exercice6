@@ -225,7 +225,7 @@ int main(int argc,char* argv[]) {
     ofstream ofs(("rhocmp_"+output_filename).c_str());  
     ofs.precision(15);
     
-    for(int i=1;i<ninter-1;++i)
+    for(int i=0;i<ninter-1;++i)
       ofs << xmidmid[i] << " " << rhocmp[i] << " " << dDx[i] << endl;
     
     ofs.close();
@@ -235,7 +235,7 @@ int main(int argc,char* argv[]) {
     ofstream ofs(("rhopol_"+output_filename).c_str());
     ofs.precision(15);
 
-    for(int i=1;i<ninter;++i)
+    for(int i=0;i<ninter;++i)
       ofs << x[i]+h[i]/2.0 << " " << rhopol[i] << endl;
 
     ofs.close();
