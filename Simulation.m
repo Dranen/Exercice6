@@ -18,3 +18,5 @@ fclose( fid );
 
 
 eval( [ '!', workingfolder, binfilename, ' < ', input_file] );
+
+fprintf('\n');

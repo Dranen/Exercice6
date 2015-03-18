@@ -1,6 +1,6 @@
 N1 = 50;
 N2 = 40;
-trivial = 0;
+trivial = 1;
 output_file = 'out.dat';
 input_file = 'inp.dat';
 
