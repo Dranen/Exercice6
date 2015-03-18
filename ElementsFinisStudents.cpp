@@ -150,13 +150,13 @@ int main(int argc,char* argv[]) {
   for(int i=1;i<ninter;++i)
   {
       d[i] = (p*0.5*(epsilonr(x[i-1])+epsilonr(x[i])) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1] + (p*0.5*(epsilonr(x[i])+epsilonr(x[i+1])) + (1-p)*epsilonr(x[i]+0.5*h[i]))/h[i];
-      c[i-1] = -(0.5*p*(epsilonr(x[i-1]+epsilonr(x[i]))) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1];
-      a[i-1] = -(0.5*p*(epsilonr(x[i-1]+epsilonr(x[i]))) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1];
+      c[i-1] = -(0.5*p*(epsilonr(x[i-1])+epsilonr(x[i])) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1];
+      a[i-1] = -(0.5*p*(epsilonr(x[i-1])+epsilonr(x[i])) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1];
       b[i] = h[i-1]*(p*rho_lib(x[i])/(2.0*epsilon0) + (1-p)*rho_lib(x[i]-h[i-1]/2.0)/(2.0*epsilon0)) + h[i]*(p*rho_lib(x[i])/(2.0*epsilon0) + (1-p)*rho_lib(x[i]+h[i]/2.0)/(2.0*epsilon0));
   }
 
   c[0] = 0;
-  c[ninter-1] = -(0.5*p*(epsilonr(x[ninter-1]+epsilonr(x[ninter]))) + (1-p)*epsilonr(x[ninter]-0.5*h[ninter-1]))/h[ninter-1];
+  c[ninter-1] = -(0.5*p*(epsilonr(x[ninter-1])+epsilonr(x[ninter])) + (1-p)*epsilonr(x[ninter]-0.5*h[ninter-1]))/h[ninter-1];
   a[ninter-1] = 0;
   d[npoints-1] = 1;
   b[npoints-1] = V_c;
