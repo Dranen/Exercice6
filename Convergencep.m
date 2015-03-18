@@ -1,13 +1,13 @@
-N = [25:25:1000];
+p_ = [0:0.01:1];
 trivial = 0;
-p = 0.5;
+N2 = 20;
+N1 = 25;
 output_file = 'out.dat';
 input_file = 'inp.dat';
 xb = 0.01;
 
-for i = 1:max(size(N))
-    N2 = 2*N(i);
-    N1 = N(i);
+for i = 1:max(size(p_))
+    p = p_(i);
     Simulation;
     Lecture_sortie;
     j = 1;

@@ -114,6 +114,9 @@ int main(int argc,char* argv[]) {
         
   int ninter=ninter1+ninter2;
         int npoints=ninter+1;
+
+  cerr << "Valeur p intégration"  <<flush;
+  cin >> p;
         
   std::string output_filename;     
   cerr << "Nom du fichier de sortie: " <<flush;
@@ -152,7 +155,7 @@ int main(int argc,char* argv[]) {
       d[i] = (p*0.5*(epsilonr(x[i-1])+epsilonr(x[i])) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1] + (p*0.5*(epsilonr(x[i])+epsilonr(x[i+1])) + (1-p)*epsilonr(x[i]+0.5*h[i]))/h[i];
       c[i-1] = -(0.5*p*(epsilonr(x[i-1])+epsilonr(x[i])) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1];
       a[i-1] = -(0.5*p*(epsilonr(x[i-1])+epsilonr(x[i])) + (1-p)*epsilonr(x[i]-0.5*h[i-1]))/h[i-1];
-      b[i] = h[i-1]*(p*rho_lib(x[i])/(2.0*epsilon0) + (1-p)*rho_lib(x[i]-h[i-1]/2.0)/(2.0*epsilon0)) + h[i]*(p*rho_lib(x[i])/(2.0*epsilon0) + (1-p)*rho_lib(x[i]+h[i]/2.0)/(2.0*epsilon0));
+      b[i] = h[i-1]*(p*rho_lib(x[i])*0.5 + (1-p)*rho_lib(x[i]-h[i-1]/2.0)*0.5) + h[i]*(p*rho_lib(x[i])*0.5 + (1-p)*rho_lib(x[i]+h[i]/2.0)*0.5);
   }
 
   c[0] = 0;

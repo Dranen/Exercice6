@@ -11,6 +11,8 @@ fprintf( fid, num2str(N1) );
 fprintf( fid, '\n');
 fprintf( fid, num2str(N2) );
 fprintf( fid, '\n');
+fprintf( fid, num2str(p) );
+fprintf( fid, '\n');
 fprintf( fid, output_file );
 fprintf( fid, '\n');
 
