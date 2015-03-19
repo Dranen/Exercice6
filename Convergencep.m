@@ -1,7 +1,8 @@
+clear all;
 p_ = [0:0.01:1];
 trivial = 0;
-N2 = 20;
-N1 = 25;
+N2 = 5;
+N1 = 5;
 output_file = 'out.dat';
 input_file = 'inp.dat';
 xb = 0.01;
@@ -17,6 +18,6 @@ for i = 1:max(size(p_))
     conv_phi(i) = phi(j);
 end
 
-Grapheconvphi;
+Grapheconvphi_p;
 
 fprintf('\n');

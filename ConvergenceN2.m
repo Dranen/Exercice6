@@ -1,3 +1,4 @@
+clear all;
 N = [40 50:50:1000];
 N1 = 50;
 trivial = 0;

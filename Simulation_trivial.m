@@ -1,3 +1,4 @@
+clear all;
 N1 = 50;
 N2 = 40;
 trivial = 1;

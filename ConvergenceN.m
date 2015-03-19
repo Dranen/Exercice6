@@ -1,4 +1,5 @@
-N = [25:25:1000];
+clear all;
+N = [1:1:1000];
 trivial = 0;
 p = 0.5;
 output_file = 'out.dat';
