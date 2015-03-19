@@ -85,7 +85,7 @@ int main(int argc,char* argv[]) {
   const double V_a=0;
   const double V_c=5;
 
-  const double p = 0.5;
+  double p = 0.5;
   
   const double a0=70000.0;
   const double x0=L1/2;
