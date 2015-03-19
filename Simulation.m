@@ -7,6 +7,10 @@ fid = fopen( [ workingfolder, input_file], 'wt' ); %create or overwrite (empty f
 %fill the file
 fprintf( fid, num2str(trivial) );
 fprintf( fid, '\n');
+if(trivial == 2)
+    fprintf( fid, num2str(n) );
+    fprintf( fid, '\n');
+end
 fprintf( fid, num2str(N1) );
 fprintf( fid, '\n');
 fprintf( fid, num2str(N2) );

@@ -39,36 +39,58 @@ void triangular_solve(const std::vector<T>& diag,
 // functionclass for epsilon_r
 class Epsilonr {
 public:
-  Epsilonr(bool trivial,double b,double c) : b(b),c(c),trivial(trivial) {};
+  Epsilonr(int mode, int n,double b,double c) : b(b),c(c),mode(mode), n(n) {};
   
   inline double operator()(double x) {
-          if(trivial or x<b)
+          if(mode == 1 || x<b)
+          {
             return 1.0;
+          }
+          if(mode == 2)
+          {
+              int i = 0;
+              while(i < (2*n+1))
+              {
+                  if((b + i*(c-b)/static_cast<double>(2*n+1)) <= x && (b + (i+1)*(c-b)/static_cast<double>(2*n+1)) >= x)
+                  {
+                      if((i%2) == 0)
+                      {
+                          return 1.0;
+                      }
+                      else
+                      {
+                          return 2.0;
+                      }
+
+                  }
+                  i++;
+              }
+          }
     
           return 2.0+5.0*(x-b)/(c-b);      
    }
   
 private:
   double c,b;
-        bool trivial;
+        int mode, n;
 };
 
 // functionclass for rho_lib/epsilon_0
 class Rho_lib {
 public:
-  Rho_lib(bool trivial,double a0,double x0,double sigma) 
-    : a0_(a0),x0_(x0),sigma2_(sigma*sigma),trivial(trivial) {};
+  Rho_lib(bool mode,double a0,double x0,double sigma)
+    : a0_(a0),x0_(x0),sigma2_(sigma*sigma),mode(mode) {};
   
   inline double operator()(double x) {
-    if(trivial)
-            return 0.;
+    if(mode == 1)
+        return 0.;
           
           return a0_*exp(-(x-x0_)*(x-x0_)/(2*sigma2_));
   }
   
 private:
     double a0_,x0_,sigma2_;
-        bool trivial;
+        bool mode;
 };
 
 int main(int argc,char* argv[]) {
@@ -93,16 +115,22 @@ int main(int argc,char* argv[]) {
 
   const double epsilon0 = 8.85418782e-12;
   
-        int trivial;
-        cerr << "trivial case 1 (question 6.2.c) ou 0 (questions suivantes): " <<flush;
-        cin  >> trivial;
+        int mode, n = 2;
+        cerr << "trivial case 1 (question 6.2.c) ou 0 (questions suivantes) ou 2 (Creneaux): " <<flush;
+        cin  >> mode;
+
+        if(mode == 2)
+        {
+            cerr << "Valeur n du creneaux"  <<flush;
+            cin >> n;
+        }
         
         
         // initialize function object for epsilon_r
-        Epsilonr epsilonr(trivial>0,xb,xc);
+        Epsilonr epsilonr(mode,n,xb,xc);
         
   // initialize function object for rho_lib
-  Rho_lib rho_lib(trivial>0,a0,x0,sigma);
+  Rho_lib rho_lib(mode,a0,x0,sigma);
 
   int ninter1,npoints1,ninter2,npoints2;
   cerr << "nombre d'intervalles N1: " <<flush;
