@@ -20,3 +20,5 @@ end
 Grapheconvphi;
 
 fprintf('\n');
+
+Suppression_fichier_sortie;

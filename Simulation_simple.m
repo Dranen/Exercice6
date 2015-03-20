@@ -13,3 +13,5 @@ Graphephi;
 GrapheEx;
 GrapheDx;
 Grapherhopol;
+
+Suppression_fichier_sortie;

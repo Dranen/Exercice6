@@ -14,3 +14,5 @@ GrapheDx;
 Grapherhopol;
 
 fprintf('\n');
+
+Suppression_fichier_sortie;
