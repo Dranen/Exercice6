@@ -213,7 +213,7 @@ int main(int argc,char* argv[]) {
 
   for(int i=0;i<ninter;++i) {
     Ex[i] = -(phi[i+1]-phi[i])/h[i];
-    Dx[i] = Ex[i]*epsilonr(x[i]);
+    Dx[i] = Ex[i]*epsilonr(x[i]+h[i]*0.5);
     pol[i] = Ex[i]*epsilon0*(epsilonr(x[i])-1);
   }
   
@@ -251,7 +251,7 @@ int main(int argc,char* argv[]) {
   std::vector<double> xmidmid(ninter-1);
   
   for(int i=0;i<ninter-1;++i) { 
-    xmidmid[i] = (x[i] + x[i+2])*0.5;
+    xmidmid[i] = (x[i] +h[i]*0.5 + x[i+1] +h[i+1]*0.5)*0.5;
     rhocmp[i]=rho_lib(xmidmid[i]);
     dDx[i]= (Dx[i+1]-Dx[i])/(0.5*(h[i+1]+h[i]));
     rhopol[i] = (pol[i+1]-pol[i])/(0.5*(h[i+1]+h[i]));
