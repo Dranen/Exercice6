@@ -208,12 +208,13 @@ int main(int argc,char* argv[]) {
   
   std::vector<double> Ex(ninter);
   std::vector<double> Dx(ninter);
-  std::vector<double> rhopol(ninter);
+  std::vector<double> pol(ninter);
+  std::vector<double> rhopol(ninter-1);
 
   for(int i=0;i<ninter;++i) {
     Ex[i] = -(phi[i+1]-phi[i])/h[i];
-    Dx[i] = Ex[i]*epsilon0*epsilonr(x[i]);
-    rhopol[i] = Ex[i]*epsilon0*(epsilonr(x[i])-1);
+    Dx[i] = Ex[i]*epsilonr(x[i]);
+    pol[i] = Ex[i]*epsilon0*(epsilonr(x[i])-1);
   }
   
   //
@@ -235,7 +236,7 @@ int main(int argc,char* argv[]) {
     ofs.precision(15);
     
     for(int i=0;i<ninter;++i)
-      ofs << x[i]+h[i]/2. << " " << Ex[i] << " " << Dx[i] << endl;
+      ofs << x[i]+h[i]/2. << " " << Ex[i] << " " << epsilon0*Dx[i] << " " << pol[i] << endl;
     
     ofs.close();
   }
@@ -253,6 +254,7 @@ int main(int argc,char* argv[]) {
     xmidmid[i] = (x[i] + x[i+2])*0.5;
     rhocmp[i]=rho_lib(xmidmid[i]);
     dDx[i]= (Dx[i+1]-Dx[i])/(0.5*(h[i+1]+h[i]));
+    rhopol[i] = (pol[i+1]-pol[i])/(0.5*(h[i+1]+h[i]));
   }
   {
     ofstream ofs(("rhocmp_"+output_filename).c_str());  
@@ -268,8 +270,8 @@ int main(int argc,char* argv[]) {
     ofstream ofs(("rhopol_"+output_filename).c_str());
     ofs.precision(15);
 
-    for(int i=0;i<ninter;++i)
-      ofs << x[i]+h[i]/2.0 << " " << rhopol[i] << endl;
+    for(int i=0;i<ninter-1;++i)
+      ofs << xmidmid[i] << " " << rhopol[i] << endl;
 
     ofs.close();
   }
