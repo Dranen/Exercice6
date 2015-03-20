@@ -5,6 +5,7 @@ out = load(['Ex_' output_file]);
 x2 = out(:,1);
 Ex = out(:,2);
 Dx = out(:,3);
+pol = out(:,4);
 out = load(['rhocmp_' output_file]);
 x3 = out(:,1);
 rhocmp = out(:,2);
