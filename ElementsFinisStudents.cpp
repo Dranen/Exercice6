@@ -78,19 +78,21 @@ private:
 // functionclass for rho_lib/epsilon_0
 class Rho_lib {
 public:
-  Rho_lib(bool mode,double a0,double x0,double sigma)
+  Rho_lib(int mode,double a0,double x0,double sigma)
     : a0_(a0),x0_(x0),sigma2_(sigma*sigma),mode(mode) {};
   
   inline double operator()(double x) {
     if(mode == 1)
+    {
         return 0.;
+    }
           
           return a0_*exp(-(x-x0_)*(x-x0_)/(2*sigma2_));
   }
   
 private:
     double a0_,x0_,sigma2_;
-        bool mode;
+        int mode;
 };
 
 int main(int argc,char* argv[]) {
