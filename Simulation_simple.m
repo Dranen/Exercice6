@@ -2,7 +2,7 @@ clear all;
 N1 = 50;
 N2 = 40;
 trivial = 0;
-p = 0.5;
+p = 0;
 output_file = 'out.dat';
 input_file = 'inp.dat';
 
@@ -13,5 +13,7 @@ Graphephi;
 GrapheEx;
 GrapheDx;
 Grapherhopol;
+GrapheErr;
+GraphePol;
 
 Suppression_fichier_sortie;
