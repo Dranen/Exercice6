@@ -2,6 +2,7 @@ clear all;
 N = [50:50:1000];
 N2 = 40;
 trivial = 0;
+p=0.5;
 output_file = 'out.dat';
 input_file = 'inp.dat';
 xb = 0.01;
