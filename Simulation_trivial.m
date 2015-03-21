@@ -13,7 +13,7 @@ Graphephi;
 GrapheEx;
 GrapheDx;
 Grapherhopol;
-GraphErr;
+GrapheErr;
 
 fprintf('\n');
 
