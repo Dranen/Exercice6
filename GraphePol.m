@@ -1,5 +1,5 @@
 figure
 plot(x2,pol);
 grid on;
-xlabel('x [m]');
-ylabel('P [C.m]');
+xlabel('x [m]', 'FontSize', 24);
+ylabel('P [C.m]', 'FontSize', 24);

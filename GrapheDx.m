@@ -1,5 +1,5 @@
 figure
 plot(x2,Dx);
 grid on;
-xlabel('x [m]');
-ylabel('Dx [V/m]');
+xlabel('x [m]', 'FontSize', 24);
+ylabel('Dx [V/m]', 'FontSize', 24);

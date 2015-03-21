@@ -1,5 +1,5 @@
 figure
 plot(x3,rhocmp-dDx);
 grid on;
-xlabel('x [m]');
-ylabel('\frac{dDx}{dx} - \rho_{lib} [C]');
+xlabel('x [m]', 'FontSize', 24);
+ylabel('$\rho_{lib} - \frac{dDx}{dx}$ [C]', 'Interpreter', 'latex', 'FontSize', 24);

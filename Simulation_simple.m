@@ -1,6 +1,6 @@
 clear all;
-N1 = 50;
-N2 = 40;
+N1 = 5000;
+N2 = 5000;
 trivial = 0;
 p = 0;
 output_file = 'out.dat';
