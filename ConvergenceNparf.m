@@ -2,7 +2,7 @@ function val = ConvergenceNparf(N1,N2,xb)
     output_file = ['out' num2str(N1) '.dat'];
     input_file = ['inp' num2str(N1) '.dat'];
     trivial = 0;
-    p = 0.5;
+    p = 0;
     Simulation;
     Lecture_sortie;
     j = 1;
@@ -10,7 +10,9 @@ function val = ConvergenceNparf(N1,N2,xb)
         j = j+1;
     end
     
-    val = phi(j);
+    val(1) = phi(j);
+    val(2) = Ex(j);
+    val(3) = rhopol(j);
     delete(input_file);
     delete(['phi_' output_file]);
     delete(['rhocmp_' output_file]);
