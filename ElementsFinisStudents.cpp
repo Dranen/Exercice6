@@ -42,7 +42,7 @@ public:
   Epsilonr(int mode, int n,double b,double c) : b(b),c(c),mode(mode), n(n) {};
   
   inline double operator()(double x) {
-          if(mode == 1 || x<b)
+          if(mode == 1 || x<b || mode == 3)
           {
             return 1.0;
           }
@@ -118,7 +118,7 @@ int main(int argc,char* argv[]) {
   const double epsilon0 = 8.85418782e-12;
   
         int mode, n = 2;
-        cerr << "trivial case 1 (question 6.2.c) ou 0 (questions suivantes) ou 2 (Creneaux): " <<flush;
+        cerr << "trivial case 1 (question 6.2.c) ou 0 (questions suivantes) ou 2 (Creneaux) ou 3 (epsilon_r = 1): " <<flush;
         cin  >> mode;
 
         if(mode == 2)
