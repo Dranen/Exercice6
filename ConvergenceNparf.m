@@ -20,7 +20,7 @@ function val = ConvergenceNparf(N1,N2,xb)
     j=j-1;
     val(2) = Ex(j)*(1-(xb*0.5-x2(j))/(x2(j+1)-x2(j)))+Ex(j+1)*(1-(x2(j+1)-xb*0.5)/(x2(j+1)-x2(j)));
     
-    val(3) = min(rhopol);
+    val(3) = max(rhopol);
     
     delete(input_file);
     delete(['phi_' output_file]);

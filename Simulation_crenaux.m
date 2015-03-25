@@ -1,6 +1,6 @@
 clear all;
 N1 = 1000;
-N2 = 1000;
+N2 = 6000;
 trivial = 2;
 n = 5;
 p = 0;
