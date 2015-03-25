@@ -254,7 +254,7 @@ int main(int argc,char* argv[]) {
     xmidmid[i] = (x[i] +h[i]*0.5 + x[i+1] +h[i+1]*0.5)*0.5;
     rhocmp[i]=rho_lib(xmidmid[i]);
     dDx[i]= (Dx[i+1]-Dx[i])/(0.5*(h[i+1]+h[i]));
-    rhopol[i] = (pol[i+1]-pol[i])/(0.5*(h[i+1]+h[i]));
+    rhopol[i] = -(pol[i+1]-pol[i])/(0.5*(h[i+1]+h[i]));
   }
   {
     ofstream ofs(("rhocmp_"+output_filename).c_str());  
