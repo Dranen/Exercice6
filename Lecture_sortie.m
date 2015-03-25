@@ -1,6 +1,8 @@
 out = load(['phi_' output_file]);
 x1 = out(:,1);
 phi = out(:,2);
+rholib = out(:,3);
+epsilonr = out(:,4);
 out = load(['Ex_' output_file]);
 x2 = out(:,1);
 Ex = out(:,2);

@@ -226,8 +226,8 @@ int main(int argc,char* argv[]) {
     ofs.precision(15);
 
     for(int i=0;i<npoints;++i)
-      ofs << x[i] << " " << phi[i] << endl;
-  
+      ofs << x[i] << " " << phi[i] << " " << rho_lib(x[i])*epsilon0 << " " << epsilonr(x[i]) << " " << endl;
+
     ofs.close();
   }
 
